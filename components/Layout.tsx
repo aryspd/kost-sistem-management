@@ -39,7 +39,7 @@ export default function Layout({
   };
 
   const Sidebar = (
-    <aside className="flex h-full w-72 flex-col bg-gradient-to-b from-slate-900 via-slate-900 to-brand-900 p-5 text-slate-300">
+    <aside className="flex h-full w-72 flex-col overflow-y-auto bg-gradient-to-b from-slate-900 via-slate-900 to-brand-900 p-5 text-slate-300">
       <div className="mb-8 flex items-center gap-3 px-2">
         <div className="rounded-xl bg-gradient-to-br from-brand-400 to-indigo-500 p-2.5 shadow-lg shadow-brand-900/50">
           <Building2 className="h-6 w-6 text-white" />
@@ -73,6 +73,17 @@ export default function Layout({
         <button onClick={logout} className="mt-3 flex items-center gap-2 text-sm font-medium text-rose-300 hover:text-rose-200">
           <LogOut className="h-4 w-4" /> Keluar
         </button>
+      </div>
+      <div className="mt-3 flex items-center gap-3 rounded-2xl bg-black/40 p-3 ring-1 ring-white/10">
+        <img
+          src="/creator-logo.jpg"
+          alt="Logo aryaspd"
+          className="h-11 w-11 shrink-0 rounded-xl bg-black object-cover ring-1 ring-white/15"
+        />
+        <div className="min-w-0">
+          <p className="text-[10px] font-medium uppercase tracking-wider text-slate-400">Dibuat oleh</p>
+          <p className="truncate text-sm font-extrabold text-white">aryaspd</p>
+        </div>
       </div>
     </aside>
   );

@@ -55,7 +55,20 @@ export default function Login() {
             ))}
           </div>
         </div>
-        <p className="relative text-sm text-brand-200/70">© {new Date().getFullYear()} Kost Manager</p>
+        <div className="relative flex items-center justify-between gap-4 border-t border-white/10 pt-5">
+          <div className="flex items-center gap-3">
+            <img
+              src="/creator-logo.jpg"
+              alt="Logo aryaspd"
+              className="h-11 w-11 rounded-xl bg-black object-cover ring-1 ring-white/20"
+            />
+            <div>
+              <p className="text-[10px] font-semibold uppercase tracking-wider text-brand-200/70">Dibuat oleh</p>
+              <p className="text-sm font-extrabold text-white">aryaspd</p>
+            </div>
+          </div>
+          <p className="text-xs text-brand-200/70">© {new Date().getFullYear()} Kost Manager</p>
+        </div>
       </div>
 
       <div className="flex items-center justify-center bg-slate-50 p-6">
