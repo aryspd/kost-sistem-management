@@ -59,12 +59,12 @@ export default function Login() {
           <div className="flex items-center gap-3">
             <img
               src="/creator-logo.jpg"
-              alt="Logo aryaspd"
+              alt="Logo ardev"
               className="h-11 w-11 rounded-xl bg-black object-cover ring-1 ring-white/20"
             />
             <div>
               <p className="text-[10px] font-semibold uppercase tracking-wider text-brand-200/70">Dibuat oleh</p>
-              <p className="text-sm font-extrabold text-white">aryaspd</p>
+              <p className="text-sm font-extrabold text-white">ardev</p>
             </div>
           </div>
           <p className="text-xs text-brand-200/70">© {new Date().getFullYear()} Kost Manager</p>
