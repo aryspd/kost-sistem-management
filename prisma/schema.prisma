@@ -1,0 +1,77 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Room {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  type      String   @default("KAMAR") // KAMAR | KIOS
+  price     Int // harga sewa per bulan (Rp)
+  size      String   @default("") // ukuran luas (mis. 3x4 m), opsional terutama untuk kios
+  facility  String   @default("")
+  createdAt DateTime @default(now())
+  tenants   Tenant[]
+}
+
+model Tenant {
+  id         Int       @id @default(autoincrement())
+  name       String
+  phone      String // format 08xx / 62xx
+  idNumber   String    @default("") // NIK / KTP
+  roomId     Int
+  moveInDate DateTime // dasar penentuan tanggal jatuh tempo setiap bulan
+  status     String    @default("AKTIF") // AKTIF | KELUAR
+  note       String    @default("")
+  createdAt  DateTime  @default(now())
+  room       Room      @relation(fields: [roomId], references: [id])
+  invoices   Invoice[]
+}
+
+model Invoice {
+  id           Int       @id @default(autoincrement())
+  tenantId     Int
+  periodIndex  Int // bulan ke-0, 1, 2 ... sejak tanggal masuk
+  periodStart  DateTime
+  periodEnd    DateTime
+  dueDate      DateTime
+  amount       Int
+  status       String    @default("BELUM_BAYAR") // BELUM_BAYAR | LUNAS
+  paidAt       DateTime?
+  method       String? // TUNAI | TRANSFER | QRIS
+  receiptNo    String?   @unique
+  receiptToken String    @unique @default(cuid()) // akses publik kwitansi
+  lastNotified DateTime?
+  createdAt    DateTime  @default(now())
+  tenant       Tenant    @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@unique([tenantId, periodIndex])
+}
+
+model Expense {
+  id        Int      @id @default(autoincrement())
+  date      DateTime
+  category  String // LISTRIK | AIR | INTERNET | PERBAIKAN | KEBERSIHAN | GAJI | LAINNYA
+  amount    Int
+  note      String   @default("")
+  createdAt DateTime @default(now())
+}
+
+model WaLog {
+  id        Int      @id @default(autoincrement())
+  phone     String
+  message   String
+  type      String // TAGIHAN | PENGINGAT | KWITANSI
+  status    String // TERKIRIM | LINK | GAGAL
+  createdAt DateTime @default(now())
+}
+
+model Setting {
+  key       String   @id
+  value     String
+  updatedAt DateTime @updatedAt
+}
